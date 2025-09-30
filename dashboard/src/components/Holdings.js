@@ -1,49 +1,47 @@
-import React, {useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import axios from "axios"; 
+import axios from "axios";
 import { VerticalBar } from "./VerticalBar";
 
 const Holdings = () => {
+  const [allHolding, setAllHolding] = useState([]);
 
-const [allHolding,setAllHolding] = useState([]);
-
-useEffect(()=>{
-  axios.get("http://localhost:3003/allHoldings").then((res)=>{
-    console.log(res.data);
-    setAllHolding(res.data);
-  })
-},[])
-
+  useEffect(() => {
+    axios.get("zarodha-app.vercel.app/allHoldings").then((res) => {
+      console.log(res.data);
+      setAllHolding(res.data);
+    });
+  }, []);
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-const labels = allHolding.map((subarray)=> subarray["name"]);
+  const labels = allHolding.map((subarray) => subarray["name"]);
 
-const data = {
-  labels,
-  datasets: [
-        {
-          label: 'Stock Price ',
-          data: allHolding.map((stock) => stock.price) ,
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-  ],
-}
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Stock Price ",
+        data: allHolding.map((stock) => stock.price),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
 
-// export const data = {
-//   labels,
-//   datasets: [
-//     {
-//       label: 'Dataset 1',
-//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-//     },
-//     {
-//       label: 'Dataset 2',
-//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-//     },
-//   ],
-// };
+  // export const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       label: 'Dataset 1',
+  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+  //     },
+  //     {
+  //       label: 'Dataset 2',
+  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+  //     },
+  //   ],
+  // };
 
   return (
     <>
@@ -105,7 +103,7 @@ const data = {
         </div>
       </div>
 
-      <VerticalBar data={data}/>
+      <VerticalBar data={data} />
     </>
   );
 };

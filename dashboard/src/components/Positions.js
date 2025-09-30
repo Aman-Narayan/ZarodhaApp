@@ -1,19 +1,18 @@
-import React, {useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import axios from "axios"; 
+import axios from "axios";
 
 // import { positions } from "../data/data";
 
 const Positions = () => {
+  const [allPosition, setAllPostion] = useState([]);
 
-  const [allPosition,setAllPostion] = useState([]);
-
-  useEffect(()=>{
-    axios.get("http://localhost:3003/allPosition").then((res)=>{
+  useEffect(() => {
+    axios.get("zarodha-app.vercel.app/allPosition").then((res) => {
       console.log(res.data);
       setAllPostion(res.data);
-    })
-  },[])
+    });
+  }, []);
 
   return (
     <>
