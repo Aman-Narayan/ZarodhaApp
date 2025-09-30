@@ -1,13 +1,13 @@
 const express = require("express");
-require('dotenv').config();
-const  mongoose = require('mongoose');
+require("dotenv").config();
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const {HoldingsModel} = require('./model/HoldingsModel')
-const {PositionsModel} = require('./model/PositionsModel')
-const {OrdersModel} = require('./model/OrdersModel')
+const { HoldingsModel } = require("./model/HoldingsModel");
+const { PositionsModel } = require("./model/PositionsModel");
 
+const { OrdersModel } = require("./model/OrdersModel");
 
 const PORT = process.env.PORT || 3003;
 const uri = process.env.MONGO_URL;
@@ -168,7 +168,7 @@ app.use(bodyParser.json());
 //           isLoss: true,
 //         },
 //       ];
-    
+
 //       tempPositions.forEach((item) => {
 //         let newPosition = new PositionsModel({
 //           product: item.product,
@@ -180,37 +180,46 @@ app.use(bodyParser.json());
 //           day: item.day,
 //           isLoss: item.isLoss,
 //         });
-    
+
 //         newPosition.save();
 //       });
 //       res.send("Done!");
 //     });
 
-app.get('/allHoldings', async(req,res)=>{
-    let allHolding = await HoldingsModel.find({});
+app.get("/allHoldings", async (req, res) => {
+  try {
+    const allHolding = await HoldingsModel.find({});
     res.json(allHolding);
+  } catch (err) {
+    console.error("Error fetching holdings:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-app.get('/allPosition', async(req,res)=>{
-    let allPosition = await PositionsModel.find({});
+app.get("/allPosition", async (req, res) => {
+  try {
+    const allPosition = await PositionsModel.find({});
     res.json(allPosition);
+  } catch (err) {
+    console.error("Error fetching positions:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-app.post("/newOrder" , async (req,res)=>{
-    let newOrder = new OrdersModel({
-        name: req.body.name,
-        qty: req.body.qty,
-        price: req.body.price,
-        mode: req.body.mode,
-    });
-    newOrder.save();
+app.post("/newOrder", async (req, res) => {
+  let newOrder = new OrdersModel({
+    name: req.body.name,
+    qty: req.body.qty,
+    price: req.body.price,
+    mode: req.body.mode,
+  });
+  newOrder.save();
 
-    res.send("Done!!!!");
-})
-
-app.listen(PORT, ()=>{
-    console.log("APP is Started!");
-    mongoose.connect(uri)
-        console.log("MongoDb connected");
+  res.send("Done!!!!");
 });
 
+app.listen(PORT, () => {
+  console.log("APP is Started!");
+  mongoose.connect(uri);
+  console.log("MongoDb connected");
+});

@@ -7,10 +7,13 @@ const Holdings = () => {
   const [allHolding, setAllHolding] = useState([]);
 
   useEffect(() => {
-    axios.get("zarodha-app.vercel.app/allHoldings").then((res) => {
-      console.log(res.data);
-      setAllHolding(res.data);
-    });
+    axios
+      .get("https://zarodha-app.vercel.app/allHoldings")
+      .then((res) => {
+        console.log(res.data);
+        setAllHolding(res.data);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];

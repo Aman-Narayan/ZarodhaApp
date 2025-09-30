@@ -8,7 +8,7 @@ const Positions = () => {
   const [allPosition, setAllPostion] = useState([]);
 
   useEffect(() => {
-    axios.get("zarodha-app.vercel.app/allPosition").then((res) => {
+    axios.get("https://zarodha-app.vercel.app/allPosition").then((res) => {
       console.log(res.data);
       setAllPostion(res.data);
     });

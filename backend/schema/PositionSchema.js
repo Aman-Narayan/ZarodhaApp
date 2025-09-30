@@ -1,4 +1,3 @@
-
 const { Schema } = require("mongoose");
 
 const PositionsSchema = new Schema({

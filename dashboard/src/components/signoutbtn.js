@@ -7,11 +7,6 @@ export default function Signoutbtn() {
 
   const toggleMenu = () => setOpen(!open);
 
-  const signOut = () => {
-    alert("Signing out..."); // replace with your signout logic
-    setOpen(false);
-  };
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -30,9 +25,7 @@ export default function Signoutbtn() {
       {open && (
         <div className="dropdown-content">
           <a href="#">USERID</a>
-          <a href="#" onClick={signOut}>
-            Sign Out
-          </a>
+          <a href="https://zarodhalander.vercel.app/">Sign Out</a>
         </div>
       )}
     </div>

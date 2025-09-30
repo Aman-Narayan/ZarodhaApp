@@ -36,40 +36,40 @@ const Funds = () => {
             </div>
             <div className="data">
               <p>Opening Balance</p>
-              <p>3736.40</p>
+              <p>3,736.40</p>
             </div>
             <div className="data">
               <p>Payin</p>
-              <p>4064.00</p>
+              <p>4,064.00</p>
             </div>
             <div className="data">
               <p>SPAN</p>
-              <p>0.00</p>
+              <p>1,275.60</p>
             </div>
             <div className="data">
               <p>Delivery margin</p>
-              <p>0.00</p>
+              <p>832.40</p>
             </div>
             <div className="data">
               <p>Exposure</p>
-              <p>0.00</p>
+              <p>450.25</p>
             </div>
             <div className="data">
               <p>Options premium</p>
-              <p>0.00</p>
+              <p>615.90</p>
             </div>
             <hr />
             <div className="data">
               <p>Collateral (Liquid funds)</p>
-              <p>0.00</p>
+              <p>2,340.75</p>
             </div>
             <div className="data">
               <p>Collateral (Equity)</p>
-              <p>0.00</p>
+              <p>1,120.40</p>
             </div>
             <div className="data">
               <p>Total Collateral</p>
-              <p>0.00</p>
+              <p>3,461.15</p>
             </div>
           </div>
         </div>

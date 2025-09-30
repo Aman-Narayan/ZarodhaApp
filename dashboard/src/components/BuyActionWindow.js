@@ -12,7 +12,7 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleBuyClick = () => {
-    axios.post("zarodha-app.vercel.app/newOrder", {
+    axios.post("https://zarodha-app.vercel.app/newOrder", {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
