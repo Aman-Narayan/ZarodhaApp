@@ -5,21 +5,57 @@ import Signoutbtn from "./signoutbtn";
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropDownOpen, setIsProfileDropDownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // New state for mobile menu toggle
+
+  const profileRef = useRef(null);
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
+    // Optionally close mobile menu after clicking a link
+    if (window.innerWidth <= 768) {
+      setIsMenuOpen(false);
+    }
   };
-  const handleProfileDropDownClick = (index) => {
+
+  const handleProfileDropDownClick = () => {
     setIsProfileDropDownOpen(!isProfileDropDownOpen);
   };
+
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Logic to close the profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileDropDownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} />
-      <div className="menus">
+      <Link to="/" onClick={() => handleMenuClick(0)}>
+        <img src="logo.png" className="logo" alt="Logo" />{" "}
+        {/* Added alt and class for image sizing */}
+      </Link>
+
+      {/* Mobile Menu Toggle Button */}
+      <div className="menu-toggle" onClick={toggleMobileMenu}>
+        <i className={`fas ${isMenuOpen ? "fa-times" : "fa-bars"}`}></i>{" "}
+        {/* Using Font Awesome classes */}
+      </div>
+
+      <div className={`menus ${isMenuOpen ? "menus-mobile-open" : ""}`}>
         <ul>
           <li>
             <Link
@@ -88,13 +124,33 @@ const Menu = () => {
             </Link>
           </li>
         </ul>
-        <hr />
-        <div className="profile" onClick={handleProfileDropDownClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
-          <div>
-            <Signoutbtn />
+        <hr className="d-none d-md-block" /> {/* Hide divider on mobile */}
+        <div className="profile-wrapper" ref={profileRef}>
+          {" "}
+          {/* Wrapper for dropdown logic */}
+          <div
+            className="profile dropdown"
+            onClick={handleProfileDropDownClick}
+          >
+            <div className="avatar">ZU</div>
+            <p className="username">USERID</p>
+            <i
+              className={`fas ms-1 fa-chevron-${
+                isProfileDropDownOpen ? "up" : "down"
+              }`}
+            ></i>
           </div>
+          {/* Profile Dropdown Content */}
+          {isProfileDropDownOpen && (
+            <div className="dropdown-content">
+              <a href="#">USERID</a>
+              <a href="https://zarodhalander.vercel.app/">Sign Out</a>
+              {/* Signout button placement depends on its implementation */}
+              {/* <div className="p-2">
+                <Signoutbtn />
+              </div> */}
+            </div>
+          )}
         </div>
       </div>
     </div>
